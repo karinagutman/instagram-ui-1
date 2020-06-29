@@ -1,11 +1,15 @@
-import React  from 'react';
+import React, { useContext } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { LoginSchema } from './login.schema';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import intro from './intro.png';
 import './Login.scss';
+import { UserContext } from '../user-context';
 
 function Login() {
+
+	const { setUser } = useContext(UserContext);
+	const history = useHistory();
 
 	const submit = async (values) => {
 		const res = await fetch('http://localhost:4000/users/login', {
@@ -17,7 +21,9 @@ function Login() {
 			body: JSON.stringify(values)
 		});
 		if (res.status === 200) {
-			console.log('yes')
+			const loggedUser = await res.json();
+			setUser(loggedUser);
+			history.push('/');
 		} else if (res.status === 401) {
 			console.log('no');
 		} else {

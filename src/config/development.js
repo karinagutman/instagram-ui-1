@@ -1,3 +1,3 @@
 export default {
-  apiUrl: 'http://localhost:4000'
+  apiUrl: 'https://dry-sea-92826.herokuapp.com'
 };

@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import config from '../config/index';
 
 export const RegisterSchema = Yup.object().shape({
 	username: Yup.string()
@@ -27,7 +28,7 @@ async function isUnique(field, value) {
 	if (memo[field].hasOwnProperty(value)) {
 		return memo[field][value];
 	}
-	const res = await fetch(`http://localhost:4000/users/check?${field}=${value}`);
+	const res = await fetch(`${config.apiUrl}/users/check?${field}=${value}`);
 	memo[field][value] = !(await res.json());
 	return memo[field][value];
 }

@@ -2,17 +2,26 @@ import React from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { PostCreateSchema } from './post-create.schema';
 import './PostCreate.scss';
+import config from '../config/index';
 
 function PostCreate() {
 
-	const submit = async (values) => {
-		const res = await fetch('http://localhost:4000/posts', {
+		const buildFormData = (values) => {
+			const data = new FormData();             //append is method of class FormData()
+			for (const key in values) {
+				data.append(key, values[key]);
+			}
+			return data;
+		};
+
+		const submit = async (values) => {
+			console.log('bla bla');
+			const data = buildFormData(values);
+			console.log(data)
+		 await fetch(`${config.apiUrl}/posts`, {
 			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json'
-			},
 			credentials: "include",
-			body: JSON.stringify(values)
+			body: data
 		});
 	};
 
@@ -24,11 +33,13 @@ function PostCreate() {
 				initialValues={{image: '', description: ''}}
 				validationSchema={PostCreateSchema}
 				onSubmit={submit}>
-				{({ isSubmitting }) => (
+				{({ isSubmitting, setFieldValue }) => (
 					<Form className="PostCreate__form mt-5 col-lg-8 px-0" noValidate>
 						<div className="form-group">
 							<label htmlFor="image">Image</label>
-							<Field type="file" id="image" name="image" />
+							<input type="file" id="image" name="image" onChange={(e) => {  //changed from Field to input  because formik doesnt work with files
+								setFieldValue('image', e.currentTarget.files[0]);
+							}}/>
 							<ErrorMessage component="small" name="image" className="PostCreate__form__error" />
 						</div>
 						<div className="form-group">

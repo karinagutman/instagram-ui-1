@@ -3,6 +3,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { LoginSchema } from './login.schema';
 import { Link, useHistory } from 'react-router-dom';
 import intro from './intro.png';
+import config from "../config/index";
 import './Login.scss';
 import { UserContext } from '../user-context';
 
@@ -12,7 +13,7 @@ function Login() {
 	const history = useHistory();
 
 	const submit = async (values) => {
-		const res = await fetch('http://localhost:4000/users/login', {
+		const res = await fetch(`${config.apiUrl}/users/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

@@ -1,0 +1,17 @@
+.Avatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+
+
+  &--md {
+    width: 40px;
+    height: 40px;
+  }
+
+  &--lg {
+    width: 150px;
+    height: 150px;
+  }
+}

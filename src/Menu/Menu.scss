@@ -2,6 +2,10 @@
   color: #f54555;
 }
 
+.Menu {
+  height: 60px;
+}
+
 .nav-link {
   color: #ffffff;
   transition: color 200ms;
@@ -10,3 +14,15 @@
     text-decoration: none;
   }
 }
+
+.navbar-brand {
+   font-family: 'Lobster', cursive;
+  font-size: 35px;
+}
+
+.nav-item {
+  font-size: 20px;
+
+}
+
+

@@ -1,13 +1,15 @@
 import React from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { PostCreateSchema } from './post-create.schema';
+import { useHistory } from 'react-router-dom';
 import './PostCreate.scss';
 import config from '../config/index';
 
 function PostCreate() {
+		const history = useHistory();
 
 		const buildFormData = (values) => {
-			const data = new FormData();             //append is method of class FormData()
+			const data = new FormData();                //append is method of class FormData()
 			for (const key in values) {
 				data.append(key, values[key]);
 			}
@@ -15,16 +17,17 @@ function PostCreate() {
 		};
 
 		const submit = async (values) => {
-			console.log('bla bla');
 			const data = buildFormData(values);
-			console.log(data)
-		 await fetch(`${config.apiUrl}/posts`, {
+		 	await fetch(`${config.apiUrl}/posts`, {
 			method: 'PUT',
 			credentials: "include",
 			body: data
 		});
+		history.push('/');
+
 	};
 
+	
 	return (
 	<div className=" d-flex row">
 		<div className="col-lg-6 order-sm-0 order-lg-1 my-lg-5">
